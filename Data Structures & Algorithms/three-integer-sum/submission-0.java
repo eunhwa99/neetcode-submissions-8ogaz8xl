@@ -1,0 +1,29 @@
+class Solution {
+           public List<List<Integer>> threeSum(int[] nums) {
+                      Arrays.sort(nums);
+                                 // 안에서 while 중복 체크를 안 하는 대신, Set으로 결과의 중복을 자동 제거합니다.
+                                            Set<List<Integer>> resultSet = new HashSet<>();
+
+                                                       for (int i = 0; i < nums.length - 2; i++) {
+                                                                      // target을 -nums[i]로 잡아야 세 수의 합이 0이 됩니다 (nums[l] + nums[r] == -nums[i])
+                                                                                     int target = -nums[i];
+                                                                                                    int l = i + 1, r = nums.length - 1;
+
+                                                                                                                   while (l < r) {
+                                                                                                                                      int currentSum = nums[l] + nums[r];
+
+                                                                                                                                                         if (currentSum == target) {
+                                                                                                                                                                                resultSet.add(List.of(nums[i], nums[l], nums[r]));
+                                                                                                                                                                                                       // [중요!] 값을 찾았으면 포인터를 이동해야 무한 루프에 안 빠집니다.
+                                                                                                                                                                                                                              l++;
+                                                                                                                                                                                                                                                     r--;
+                                                                                                                                                                                                                                                                        } else if (currentSum < target) {
+                                                                                                                                                                                                                                                                                               l++; // 합이 작으면 키워야 하므로 왼쪽(작은 값)을 오른쪽으로 이동
+                                                                                                                                                                                                                                                                                                                  } else {
+                                                                                                                                                                                                                                                                                                                                         r--; // 합이 크면 줄여야 하므로 오른쪽(큰 값)을 왼쪽으로 이동
+                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                                           }
+                                                                                                                                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                                                                                                                                                 return new ArrayList<>(resultSet);
+                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                           }
